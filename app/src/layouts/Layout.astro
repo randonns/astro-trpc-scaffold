@@ -1,0 +1,62 @@
+---
+import "@/styles/globals.css"
+import { ViewTransitions } from "astro:transitions"
+import { Separator } from "@/components/ui/separator"
+
+const menus = [
+  { name: "사용자 관리", path: "/user" },
+  { name: "부서 관리", path: "/dept" },
+]
+
+function findCurrentMenu() {
+  return menus.find((m) => m.path === Astro.url.pathname)
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Boilerplate</title>
+    <!-- ViewTransitions을 추가하면 SPA 모드가 된다. -->
+    <ViewTransitions />
+  </head>
+  <body>
+    <header
+      class="sticky z-40 top-0 bg-background/80 backdrop-blur-lg border-b px-6 py-2 shadow flex flex-row items-center"
+    >
+      <div class="logo">Astro Boilerplate</div>
+      {
+        menus.map((m) => (
+          <a href={m.path}>
+            <div class="nav-item" class:list={{ active: m.path === Astro.url.pathname }}>
+              {m.name}
+            </div>
+          </a>
+        ))
+      }
+    </header>
+    <div class="container mx-auto p-4 my-10 border rounded-[0.5rem] shadow" transition:animate="slide">
+      <h1 class="text-3xl">{findCurrentMenu()?.name}</h1>
+      <Separator class="my-4" />
+      <slot />
+    </div>
+    <style>
+      .logo {
+        @apply mr-8 text-lg font-bold;
+      }
+
+      .nav-item {
+        @apply rounded-md px-3 py-1 mr-2 hover:bg-gray-200;
+
+        &.active {
+          @apply bg-gray-100 hover:bg-gray-200 font-bold;
+        }
+      }
+    </style>
+  </body>
+</html>
