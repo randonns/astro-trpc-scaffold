@@ -11,7 +11,9 @@
       <TableRow v-for="dept in depts" :key="dept.id">
         <TableCell>{{ dept.id }}</TableCell>
         <TableCell>{{ dept.name }}</TableCell>
-        <TableCell>{{ formatTime(dept.createdAt) }}</TableCell>
+        <TableCell>
+          <span class="time">{{ formatTime(dept.createdAt) }}</span>
+        </TableCell>
       </TableRow>
     </TableBody>
   </Table>
@@ -32,3 +34,10 @@ onMounted(async () => {
   depts.value = await client.dept.all.query()
 })
 </script>
+
+<style scoped>
+/* lang 지정 없이 tailwind 사용 가능하다. */
+.time {
+  @apply font-thin italic;
+}
+</style>
