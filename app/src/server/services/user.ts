@@ -1,4 +1,4 @@
-import UserRepository from "@/server/repositories/user"
+import UserRepository from "../repositories/user"
 
 export default {
   async findAll(fake: boolean) {
