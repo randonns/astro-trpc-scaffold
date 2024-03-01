@@ -6,7 +6,7 @@
         <TableHead>ID</TableHead>
         <TableHead>이름</TableHead>
         <TableHead>나이</TableHead>
-        <TableHead>부서 ID</TableHead>
+        <TableHead>부서</TableHead>
         <TableHead class="w-[210px]">생성일시</TableHead>
       </TableRow>
     </TableHeader>
@@ -15,7 +15,7 @@
         <TableCell>{{ user.id }}</TableCell>
         <TableCell>{{ user.name }}</TableCell>
         <TableCell>{{ user.age }}</TableCell>
-        <TableCell>{{ user.deptId }}</TableCell>
+        <TableCell>{{ user.deptName }} ({{ user.deptId }})</TableCell>
         <TableCell>{{ formatTime(user.createdAt) }}</TableCell>
       </TableRow>
     </TableBody>

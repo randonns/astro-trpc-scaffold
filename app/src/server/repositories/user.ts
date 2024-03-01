@@ -6,12 +6,16 @@ interface UserEntity {
   name: string
   age: number
   deptId: number
+  deptName: string
   createdAt: Date
 }
 
 export default {
   async findAll() {
-    const { rows } = await sql<UserEntity>`SELECT * FROM users`.execute(db)
+    const { rows } = await sql<UserEntity>`
+      SELECT u.*, d.name AS dept_name
+        FROM users u, depts d
+       WHERE u.dept_id = d.id`.execute(db)
     return rows
   },
 
