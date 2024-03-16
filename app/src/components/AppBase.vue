@@ -1,6 +1,8 @@
 <template>
   <Toaster />
-  <slot />
+  <Suspense>
+    <slot />
+  </Suspense>
 </template>
 
 <script setup lang="ts">

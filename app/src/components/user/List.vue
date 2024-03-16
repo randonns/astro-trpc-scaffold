@@ -23,26 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { useClient } from "@/composables/client"
 import Create from "./Create.vue"
 import { formatTime } from "@/utils/formatter"
 
-type Users = Awaited<ReturnType<typeof client.user.all.query>>
-
 const client = useClient()
-const users = ref<Users>([])
-
-async function loadUsers() {
-  users.value = await client.user.all.query({ fake: false })
-}
-
-onMounted(async () => {
-  await loadUsers()
-})
+const users = ref(await client.user.all.query({ fake: false }))
 
 async function onCreate() {
-  await loadUsers()
+  users.value = await client.user.all.query({ fake: false })
 }
 </script>

@@ -20,19 +20,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { useClient } from "@/composables/client"
 import { formatTime } from "@/utils/formatter"
 
-type Depts = Awaited<ReturnType<typeof client.dept.all.query>>
-
 const client = useClient()
-const depts = ref<Depts>([])
-
-onMounted(async () => {
-  depts.value = await client.dept.all.query()
-})
+const depts = ref(await client.dept.all.query())
 </script>
 
 <style scoped>
