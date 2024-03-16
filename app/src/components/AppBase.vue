@@ -1,6 +1,6 @@
 <template>
-  <slot />
   <Toaster />
+  <slot />
 </template>
 
 <script setup lang="ts">
@@ -13,6 +13,8 @@ const { toast, dismiss } = useToast()
 const toastId = ref<string>()
 
 onErrorCaptured((error) => {
+  console.warn("Error Captured:", error)
+
   const title = error instanceof TRPCClientError ? error.data.code : "Error"
   const description = error.message
 
